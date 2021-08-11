@@ -105,6 +105,27 @@ using std::fdopen;
 // There is no thread annotation support.
 #define EXCLUSIVE_LOCKS_REQUIRED(mu)
 
+// Sets the fill character and stores the previous one. Once the class instance
+// is destroyed, the previous fill character is restored.
+class FillSaver {
+public:
+  explicit FillSaver(std::ostream& out, char fill) : out_(out) {
+      prev_fill_ = out_.fill(fill);
+  }
+
+  ~FillSaver() {
+    out_.fill(prev_fill_);
+  }
+
+private:
+  // Not copyable
+  FillSaver(const FillSaver&);
+  FillSaver& operator=(const FillSaver&);
+
+  std::ostream& out_;
+  char prev_fill_;
+};
+
 static bool BoolFromEnv(const char *varname, bool defval) {
   const char* const valstr = getenv(varname);
   if (!valstr) {
@@ -1585,7 +1606,6 @@ void LogMessage::Init(const char* file,
     }
   }
 
-  stream().fill('0');
   data_->preserved_errno_ = errno;
   data_->severity_ = severity;
   data_->line_ = line;
@@ -1611,6 +1631,7 @@ void LogMessage::Init(const char* file,
   //    (log level, GMT year, month, date, time, thread_id, file basename, line)
   // We exclude the thread_id for the default thread.
   if (FLAGS_log_prefix && (line != kNoLogPrefix)) {
+    FillSaver saver(stream(), '0');
     #ifdef GLOG_CUSTOM_PREFIX_SUPPORT
       if (custom_prefix_callback == NULL) {
     #endif
