@@ -10,3 +10,9 @@ config.h
 glog-*.tar.gz
 packages/debian-*
 packages/rpm-unknown
+
+#dir
+.vscode
+build
+mylearn/test/build
+bin
