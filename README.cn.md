@@ -70,6 +70,15 @@ sudo cmake --build build --target install
 -- Installing: /usr/local/lib/cmake/glog/glog-targets-debug.cmake
 ```
 
+自己写了一个 `卸载` 的命令：
+
+```shell
+sudo rm -rf /usr/local/lib/libglog*
+sudo rm -rf /usr/local/include/glog
+sudo rm -f /usr/local/lib/pkgconfig/libglog.pc
+sudo rm -rf /usr/local/lib/cmake/glog
+```
+
 #### 在 Cmake 项目中使用 glog
 
 > 简单使用样例：g++ --std=c++11  -o build/basic basic.cc  -lglog
