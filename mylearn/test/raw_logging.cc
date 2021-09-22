@@ -12,9 +12,9 @@
  * (The third parameter can be used to receive user-supplied data, and is
  * NULL by default.)
  */
-void CustomPrefix(std::ostream &s, const LogMessageInfo &l, void* param) {
-  s << "[CustomPrefix][" << (intptr_t)param << "]";
-}
+// void CustomPrefix(std::ostream &s, const LogMessageInfo &l, void* param) {
+//   s << "[CustomPrefix][" << (intptr_t)param << "]";
+// }
 
 intptr_t param = 10;
 

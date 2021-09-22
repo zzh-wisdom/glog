@@ -9,9 +9,9 @@ TARGETS = $(patsubst %.cc,%,$(SOURCE))    # 将源文件的.cc后缀名去掉
 
 CC = gcc
 CXX = g++
-CXXFLAGS = --std=c++11 # 这里可以添加头文件寻找的路径 -g -Iinclude -Isrc
+CXXFLAGS = --std=c++11 -DNDEBUG # 这里可以添加头文件寻找的路径 -g -Iinclude -Isrc
 # CFLAGS += --std=c++11 -g
-LDFLAGS = -L/usr/local/lib/ -lglog       # 链接库，指定搜索路径 -lpmem -lpmemobj -lpthread -lpmem2 -rpath=. -L..
+LDFLAGS = -lglog       # 链接库，指定搜索路径 -lpmem -lpmemobj -lpthread -lpmem2 -rpath=. -L..
 
 BUILD_DIR = bin
 P_DIR = ..

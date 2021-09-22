@@ -73,10 +73,26 @@ sudo cmake --build build --target install
 自己写了一个 `卸载` 的命令：
 
 ```shell
+# 卸载
 sudo rm -rf /usr/local/lib/libglog*
 sudo rm -rf /usr/local/include/glog
 sudo rm -f /usr/local/lib/pkgconfig/libglog.pc
 sudo rm -rf /usr/local/lib/cmake/glog
+
+# 安装
+sudo cp -r install/include/glog  /usr/local/include/
+sudo cp install/lib/* /usr/local/lib/
+
+# 安装
+sudo cp -r install/include/glog  /usr/include/
+sudo cp install/lib/* /lib/x86_64-linux-gnu/
+
+sudo ldconfig
+ldconfig -p | grep libglog
+
+# 其他
+sudo rm -f /lib/x86_64-linux-gnu/libglog.*
+sudo rm -rf /usr/include/glog
 ```
 
 #### 在 Cmake 项目中使用 glog
